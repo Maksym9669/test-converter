@@ -51,7 +51,7 @@ function App() {
     <FormContext.Provider value={providerValue}>
       <div className="App">
         <Header></Header>
-        <InputForm></InputForm>
+        <InputForm />
       </div>
     </FormContext.Provider>
   );

@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { FormContext } from "../App";
+import FormElement from "./FormElement";
 
 const InputForm = () => {
   const providerValue = useContext(FormContext);
   const currencies = {
     USD: providerValue.exchangeRates.USD,
     EUR: providerValue.exchangeRates.EUR,
+    UAH: 1,
   };
+  const re = /^[0-9.\b]+$/;
 
   if (!providerValue)
     return (
@@ -16,8 +19,6 @@ const InputForm = () => {
     );
 
   const handleFirstInputChange = (e) => {
-    const re = /^[0-9.\b]+$/;
-
     if (e.target.value !== "" && !re.test(e.target.value)) {
       return;
     }
@@ -47,8 +48,6 @@ const InputForm = () => {
   };
 
   const handleSecondInputChange = (e) => {
-    const re = /^[0-9.\b]+$/;
-
     if (e.target.value !== "" && !re.test(e.target.value)) {
       return;
     }
@@ -122,59 +121,21 @@ const InputForm = () => {
 
   return (
     <div>
-      {/* Form 1 */}
-
       <form className="form-group">
-        <label>
-          Enter amount:
-          <input
-            className="form-control"
-            type="text"
-            value={providerValue.formData.firstValue}
-            onChange={handleFirstInputChange}
-          />
-          <label>
-            Choose currency:
-            <select
-              className="form-control"
-              value={providerValue.formData.firstCurrency}
-              onChange={handleFirstSelectChange}
-            >
-              <option></option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="UAH">UAH</option>
-            </select>
-          </label>
-        </label>
+        <FormElement
+          value={providerValue.formData.firstValue}
+          onInputChange={handleFirstInputChange}
+          currency={providerValue.formData.firstCurrency}
+          onSelectChange={handleFirstSelectChange}
+        ></FormElement>
 
-        <label>
-          Enter amount:
-          <input
-            className="form-control"
-            type="text"
-            value={providerValue.formData.secondValue}
-            onChange={handleSecondInputChange}
-          />
-          <label>
-            Choose currency:
-            <select
-              className="form-control"
-              value={providerValue.formData.secondCurrency}
-              onChange={handleSecondSelectChange}
-            >
-              <option></option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="UAH">UAH</option>
-            </select>
-          </label>
-        </label>
+        <FormElement
+          value={providerValue.formData.secondValue}
+          onInputChange={handleSecondInputChange}
+          currency={providerValue.formData.secondCurrency}
+          onSelectChange={handleSecondSelectChange}
+        ></FormElement>
       </form>
-
-      {/* Form 2 */}
-      <form></form>
-      <p>{providerValue.formData.firstValue}</p>
     </div>
   );
 };

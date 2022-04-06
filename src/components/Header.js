@@ -14,10 +14,18 @@ const Header = () => {
     <div>
       <h1>Exchange rates</h1>
       <p>
-        <b>USD:</b> {providerValue.exchangeRates.USD} UAH
-      </p>
-      <p>
-        <b>EUR:</b> {providerValue.exchangeRates.EUR} UAH
+        {!providerValue ? (
+          <p>Exchange data is not available</p>
+        ) : (
+          <div>
+            <p>
+              <b>USD:</b> {providerValue.exchangeRates.USD} UAH
+            </p>
+            <p>
+              <b>EUR:</b> {providerValue.exchangeRates.EUR} UAH
+            </p>
+          </div>
+        )}
       </p>
     </div>
   );
